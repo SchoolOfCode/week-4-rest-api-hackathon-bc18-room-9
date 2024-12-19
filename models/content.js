@@ -50,3 +50,10 @@ export async function createNewMovie(movie_details) {
   movies = [...movies, new_movie];
   return new_movie;
 }
+
+export async function removeMovieEntry(movieId) {
+  const removed_movie = movies.find(({ show_id }) => show_id === movieId);
+  const id_number = Number(movieId.slice(1));
+  movies = [...movies.slice(0, id_number - 1), ...movies.slice(id_number)];
+  return removed_movie;
+}

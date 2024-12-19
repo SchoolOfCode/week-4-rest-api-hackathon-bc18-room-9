@@ -6,6 +6,7 @@ import {
   addReviewToMovie,
   deleteReview,
   createNewMovie,
+  removeMovieEntry,
 } from "../models/content.js";
 
 const router = express.Router();
@@ -76,6 +77,17 @@ router.post("/", async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(501).json({ message: "Movie profile not updated" });
+  }
+});
+
+//DELETE
+//Delete an entry from the database
+router.delete("/remove/:id", async (req, res) => {
+  try {
+    const data = await removeMovieEntry(req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(404).json({ message: "Movie not found" });
   }
 });
 
