@@ -3,6 +3,7 @@ import {
   getContent,
   getMovieById,
   getMovieByParam,
+  addReviewToMovie,
 } from "../models/content.js";
 
 const router = express.Router();
@@ -39,6 +40,18 @@ router.get("/:field/:value", async (req, res) => {
   if (movie) {
     res.json(movie);
   } else {
+    res.status(404).json({ message: "Movie not found" });
+  }
+});
+
+//PATCH
+//Add a "Review" field to selected movie objectFit:
+router.patch("/:id", async (req, res) => {
+  try {
+    let { review } = req.body;
+    const data = await addReviewToMovie(req.params.id, review);
+    res.json(data);
+  } catch (error) {
     res.status(404).json({ message: "Movie not found" });
   }
 });

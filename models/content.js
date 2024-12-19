@@ -19,3 +19,11 @@ export async function getMovieByParam(field, value) {
     return movies.find((movie) => movie[field].includes(value, 0));
   }
 }
+
+export async function addReviewToMovie(movieId, review_string) {
+  console.log(movieId);
+  const selected_movie = movies.find(({ show_id }) => show_id === movieId);
+  console.log("Found movie");
+  selected_movie["Review"] = review_string;
+  return selected_movie;
+}
