@@ -24,6 +24,14 @@ export async function addReviewToMovie(movieId, review_string) {
   console.log(movieId);
   const selected_movie = movies.find(({ show_id }) => show_id === movieId);
   console.log("Found movie");
-  selected_movie["Review"] = review_string;
+  selected_movie["review"] = review_string;
+  return selected_movie;
+}
+
+export async function deleteReview(movieId) {
+  console.log(movieId);
+  const selected_movie = movies.find(({ show_id }) => show_id === movieId);
+  console.log("Found movie");
+  delete selected_movie["review"];
   return selected_movie;
 }
