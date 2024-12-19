@@ -28,9 +28,14 @@ router.get("/:id", async (req, res) => {
 // GET
 // Gets back specific movie by any param
 router.get("/:field/:value", async (req, res) => {
-  const { field, value } = req.params;
+  let { field, value } = req.params;
+  console.log(field);
+  if (field === "release_year") {
+    value = Number(value);
+    console.log("Converted Value:", value);
+  }
   const movie = await getMovieByParam(field, value);
-  console.log(movie);
+
   if (movie) {
     res.json(movie);
   } else {

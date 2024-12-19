@@ -13,5 +13,9 @@ export async function getMovieById(movieId) {
 }
 
 export async function getMovieByParam(field, value) {
-  return movies.find((movie) => movie[field] === value);
+  if (field === "release_year") {
+    return movies.find((movie) => movie[field] === value);
+  } else {
+    return movies.find((movie) => movie[field].includes(value, 0));
+  }
 }
