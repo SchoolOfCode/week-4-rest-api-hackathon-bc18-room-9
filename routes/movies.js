@@ -4,6 +4,7 @@ import {
   getMovieById,
   getMovieByParam,
   addReviewToMovie,
+  deleteReview,
 } from "../models/content.js";
 
 const router = express.Router();
@@ -33,7 +34,6 @@ router.get("/:field/:value", async (req, res) => {
   console.log(field);
   if (field === "release_year") {
     value = Number(value);
-    console.log("Converted Value:", value);
   }
   const movie = await getMovieByParam(field, value);
 
@@ -50,6 +50,17 @@ router.patch("/:id", async (req, res) => {
   try {
     let { review } = req.body;
     const data = await addReviewToMovie(req.params.id, review);
+    res.json(data);
+  } catch (error) {
+    res.status(404).json({ message: "Movie not found" });
+  }
+});
+
+//DELETE
+//Delete a "Review" field to selected movie objectFit:
+router.delete("/:id", async (req, res) => {
+  try {
+    const data = await deleteReview(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(404).json({ message: "Movie not found" });
