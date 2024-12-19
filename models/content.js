@@ -4,6 +4,10 @@ let movies = data
   .filter((item) => item.type === "Movie")
   .map((movie) => ({ ...movie }));
 
+let tvshows = data
+  .filter((item) => item.type === "TV Show")
+  .map((movie) => ({ ...movie }));
+
 export async function getContent() {
   return [...movies];
 }
@@ -34,4 +38,15 @@ export async function deleteReview(movieId) {
   console.log("Found movie");
   delete selected_movie["review"];
   return selected_movie;
+}
+
+export async function createNewMovie(movie_details) {
+  const current_movie_total = movies.length;
+  const current_tv_total = tvshows.length;
+  const new_movie = {
+    show_id: "s" + (current_movie_total + current_tv_total + 1),
+    ...movie_details,
+  };
+  movies = [...movies, new_movie];
+  return new_movie;
 }
