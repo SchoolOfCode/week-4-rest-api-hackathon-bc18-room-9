@@ -1,10 +1,15 @@
 import { data } from "../libs/data.js";
 
-let movies = data.map((movies) => ({ ...movies }));
+let movies = data
+  .filter((item) => item.type === "Movie")
+  .map((movie) => ({ ...movie }));
 
-// GET
-// Gets back all the movies
+console.log(movies[1].show_id);
 
-export function getContent() {
+export async function getContent() {
   return [...movies];
+}
+
+export async function getMovieById(movieId) {
+  return movies.find(({ show_id }) => show_id === movieId);
 }
