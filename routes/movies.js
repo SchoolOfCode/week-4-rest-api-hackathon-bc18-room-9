@@ -4,6 +4,7 @@ import {
   getMovieById,
   getMovieByParam,
   addReviewToMovie,
+  createNewMovie,
 } from "../models/content.js";
 
 const router = express.Router();
@@ -55,5 +56,28 @@ router.patch("/:id", async (req, res) => {
     res.status(404).json({ message: "Movie not found" });
   }
 });
+
+//POST
+//Create a new movie object in database
+router.post("/", async (req, res) => {
+  try {
+    const data = await createNewMovie(req.body);
+    res.json(data);
+  } catch (error) {
+    res.status(501).json({ message: "Movie profile not updated" });
+  }
+});
+
+// //DELETE
+// //Delete an entry from the database
+// router.delete("/:id", async (req,res) => {
+//   try {
+//     const data = await (req.params.id, review);
+//     res.json(data);
+//   } catch (error) {
+//     res.status(404).json({ message: "Movie not found" });
+//   }
+// })
+
 
 export default router;

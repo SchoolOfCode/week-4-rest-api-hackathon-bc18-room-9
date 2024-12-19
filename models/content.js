@@ -20,10 +20,21 @@ export async function getMovieByParam(field, value) {
   }
 }
 
+export async function createNewMovie(movie_details) {
+  console.log("test")
+  const initial_movie_count = data.length;
+  console.log(data.length)
+  console.log(movies.length)
+  const new_movie = {
+    "show_id": "s"+(initial_movie_count+1),
+    ...movie_details,  
+  }
+  movies = [...movies, new_movie];
+  return new_movie;
+}
+
 export async function addReviewToMovie(movieId, review_string) {
-  console.log(movieId);
   const selected_movie = movies.find(({ show_id }) => show_id === movieId);
-  console.log("Found movie");
   selected_movie["Review"] = review_string;
   return selected_movie;
 }
