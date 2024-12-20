@@ -61,3 +61,10 @@ export async function removeMovieEntry(movieId) {
   movies = updated_movies;
   return movies;
 }
+
+export async function addWatchAgain(movieId) {
+  const selected_movie = movies.find(({ show_id }) => show_id === movieId);
+  console.log("Found movie");
+  selected_movie["watch_again"] = true;
+  return selected_movie;
+}
