@@ -47,13 +47,17 @@ export async function createNewMovie(movie_details) {
     show_id: "s" + (current_movie_total + current_tv_total + 1),
     ...movie_details,
   };
+  console.log(new_movie.show_id);
+  console.log(typeof new_movie.show_id);
   movies = [...movies, new_movie];
   return new_movie;
 }
 
 export async function removeMovieEntry(movieId) {
-  const removed_movie = movies.find(({ show_id }) => show_id === movieId);
-  const id_number = Number(movieId.slice(1));
-  movies = [...movies.slice(0, id_number - 1), ...movies.slice(id_number)];
-  return removed_movie;
+  console.log(movieId);
+  const updated_movies = movies
+    .filter((item) => item.show_id != movieId)
+    .map((movie) => ({ ...movie }));
+  movies = updated_movies;
+  return movies;
 }
