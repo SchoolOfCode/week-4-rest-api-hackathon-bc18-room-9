@@ -7,6 +7,8 @@ import {
   deleteMovieReview,
   createNewMovie,
   removeMovieEntry,
+  addWatchAgain,
+  addViews,
 } from "../models/content.js";
 
 const router = express.Router();
@@ -85,6 +87,27 @@ router.post("/", async (req, res) => {
 router.delete("/remove/:id", async (req, res) => {
   try {
     const data = await removeMovieEntry(req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(404).json({ message: "Movie not found" });
+  }
+});
+
+// PATCH
+// Add the watch again value and set to true
+
+router.patch("/watch-again/:id", async (req, res) => {
+  try {
+    const data = await addWatchAgain(req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(404).json({ message: "Movie not found" });
+  }
+});
+
+router.patch("/view-count/:id", async (req, res) => {
+  try {
+    const data = await addViews(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(404).json({ message: "Movie not found" });
