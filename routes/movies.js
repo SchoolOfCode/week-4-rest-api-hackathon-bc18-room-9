@@ -1,10 +1,10 @@
 import express from "express";
 import {
-  getContent,
+  getMovieContent,
   getMovieById,
   getMovieByParam,
   addReviewToMovie,
-  deleteReview,
+  deleteMovieReview,
   createNewMovie,
   removeMovieEntry,
   addWatchAgain,
@@ -16,7 +16,7 @@ const router = express.Router();
 // GET
 // Gets back all the movies
 router.get("/", async (req, res) => {
-  const all_content = await getContent();
+  const all_content = await getMovieContent();
   res.json(all_content);
 });
 
@@ -64,7 +64,7 @@ router.patch("/:id", async (req, res) => {
 //Delete a "Review" field to selected movie objectFit:
 router.delete("/:id", async (req, res) => {
   try {
-    const data = await deleteReview(req.params.id);
+    const data = await deleteMovieReview(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(404).json({ message: "Movie not found" });
